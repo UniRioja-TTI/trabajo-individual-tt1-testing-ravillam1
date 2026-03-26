@@ -52,6 +52,20 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		    <groupId>org.openapitools</groupId>
+		    <artifactId>jackson-databind-nullable</artifactId>
+		    <version>0.2.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.annotation</groupId>
+		    <artifactId>jakarta.annotation-api</artifactId>
+		    <version>3.0.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -59,6 +73,33 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+			    <groupId>org.openapitools</groupId>
+			    <artifactId>openapi-generator-maven-plugin</artifactId>
+			    <!-- RELEASE_VERSION -->
+			    <version>7.19.0</version>
+			    <!-- /RELEASE_VERSION -->
+			    <executions>
+			        <execution>
+			            <goals>
+			                <goal>generate</goal>
+			            </goals>
+			            <configuration>
+			                <inputSpec>${project.basedir}/src/main/resources/swagger.json</inputSpec>
+			                <generatorName>java</generatorName>
+			                <library>restclient</library>
+			                <apiPackage>com.tt1.trabajo.utilidades.api</apiPackage>
+                			<modelPackage>com.tt1.trabajo.utilidades.model</modelPackage>
+                			
+			                <configOptions>
+			                <useSpringBoot3>true</useSpringBoot3>
+                    		<interfaceOnly>true</interfaceOnly>
+			                   <sourceFolder>src/gen/java</sourceFolder>
+			                </configOptions>
+			            </configuration>
+			        </execution>
+			    </executions>
 			</plugin>
 		</plugins>
 	</build>
